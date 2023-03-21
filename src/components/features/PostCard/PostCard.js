@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const PostCard = ({ author, title, publishedDate, shortDescription, id }) => {
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Body>
+      <Card.Body className='d-flex flex-column'>
         <Card.Title>{title}</Card.Title>
         <p className='mb-1 text-bold'>
           <span>Author: {author}</span>
@@ -14,7 +14,7 @@ const PostCard = ({ author, title, publishedDate, shortDescription, id }) => {
           <span>Published: {publishedDate}</span>
         </p>
         <Card.Text className='my-3'>{shortDescription}</Card.Text>
-        <Link to={`post/${id}`}>
+        <Link to={`post/${id}`} className='mt-auto'>
           <Button variant='primary'>Read more</Button>
         </Link>
       </Card.Body>

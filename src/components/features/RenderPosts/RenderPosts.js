@@ -8,6 +8,7 @@ const RenderPosts = () => {
   return (
     <Container>
       <CardGroup>
+        {posts.length === 0 && <h2 className='m-auto'>No posts</h2>}
         {posts.map((post) => (
           <PostCard key={post.id} {...post} />
         ))}

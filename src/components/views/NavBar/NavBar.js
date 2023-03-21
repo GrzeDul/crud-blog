@@ -5,14 +5,19 @@ import Container from 'react-bootstrap/Container';
 
 const NavBar = () => {
   return (
-    <Navbar bg='primary' variant='dark' expand='lg' className='my-4 rounded'>
+    <Navbar
+      bg='primary'
+      variant='dark'
+      expand='lg'
+      className='my-4 rounded d-flex flex-row'
+    >
       <Container>
         <Navbar.Brand href='#home'>Blog.app</Navbar.Brand>
-        <Nav>
-          <Nav.Link as={NavLink} to='/'>
+        <Nav className='ms-auto flex-row'>
+          <Nav.Link as={NavLink} to='/' className='ms-2'>
             Home
           </Nav.Link>
-          <Nav.Link as={NavLink} to='/about'>
+          <Nav.Link as={NavLink} to='/about' className='ms-2'>
             About
           </Nav.Link>
         </Nav>
