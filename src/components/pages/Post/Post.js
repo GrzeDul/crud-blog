@@ -14,12 +14,12 @@ const Post = () => {
   const dispatch = useDispatch();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { postId } = useParams();
+  const { id } = useParams();
   const handleDeleteClick = () => {
-    dispatch(deletePost(postId));
+    dispatch(deletePost(id));
     handleClose();
   };
-  const postData = useSelector((state) => getPostById(state, postId));
+  const postData = useSelector((state) => getPostById(state, id));
   if (!postData) return <Navigate to='/' />;
   const { title, author, publishedDate, content } = postData;
   return (
@@ -56,7 +56,7 @@ const Post = () => {
           <Col xs lg='7' className='d-flex flex-row'>
             <h1 className='m-0 fs-3 text-bold'>{title}</h1>
             <div className='buttons ms-auto'>
-              <Link to={`/post/edit/:postId`} className='ms-2'>
+              <Link to={`/post/edit/${id}`} className='ms-2'>
                 <Button variant='outline-success'>Edit</Button>
               </Link>
               <Button
