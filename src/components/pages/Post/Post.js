@@ -9,6 +9,7 @@ import { getPostById } from '../../../redux/postsRedux';
 import { useParams, Navigate } from 'react-router';
 import { useState } from 'react';
 import { deletePost } from '../../../redux/postsRedux';
+import { dateToString } from '../../../utils';
 const Post = () => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Post = () => {
   const postData = useSelector((state) => getPostById(state, id));
   if (!postData) return <Navigate to='/' />;
   const { title, author, publishedDate, content } = postData;
+  const convertedPublishedDate = dateToString(publishedDate);
   return (
     <article>
       <Modal show={show} onHide={handleClose}>
@@ -77,9 +79,9 @@ const Post = () => {
               <span>Author: {author}</span>
             </p>
             <p className='mb-1 text-bold'>
-              <span>Published: {publishedDate}</span>
+              <span>Published: {convertedPublishedDate}</span>
             </p>
-            <p className='my-3'>{content}</p>
+            <p className='my-3' dangerouslySetInnerHTML={{ __html: content }} />
           </Col>
         </Row>
       </Container>

@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 const PostCard = ({ author, title, publishedDate, shortDescription, id }) => {
+  console.log(publishedDate);
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Body className='d-flex flex-column'>
