@@ -6,7 +6,7 @@ const Home = () => {
     <main>
       <div className='main-title d-flex flex-row mb-5'>
         <h1 className='m-0 fs-3 text-bold'>All Posts</h1>
-        <Link to={`post/add`} className='ms-auto'>
+        <Link to='post/add' className='ms-auto'>
           <Button variant='outline-success'>Add post</Button>
         </Link>
       </div>

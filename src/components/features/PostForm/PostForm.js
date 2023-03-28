@@ -11,26 +11,48 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useForm } from 'react-hook-form';
 
 const PostForm = ({ action, actionText, ...props }) => {
-  const [title, setTitle] = useState(props.title || '');
-  const [shortDescription, setShortDescription] = useState(
-    props.shortDescription || ''
-  );
-  const [publishedDate, setPublishedDate] = useState(
-    props.publishedDate || new Date()
-  );
-  const [author, setAuthor] = useState(props.author || '');
-  const [content, setContent] = useState(props.content || '');
-  const [contentError, setContentError] = useState(false);
-  const [dateError, setDateError] = useState(false);
+  // const [title, setTitle] = useState(props.title || '');
+  // const [shortDescription, setShortDescription] = useState(
+  //   props.shortDescription || ''
+  // );
+  // const [publishedDate, setPublishedDate] = useState(
+  //   props.publishedDate || new Date()
+  // );
+  // const [author, setAuthor] = useState(props.author || '');
+  // const [content, setContent] = useState(props.content || '');
+  // const [contentError, setContentError] = useState(false);
+  // const [dateError, setDateError] = useState(false);
+
+  const [formData, setFormData] = useState({
+    title: props.title || '',
+    shortDescription: props.shortDescription || '',
+    publishedDate: props.publishedDate || new Date(),
+    author: props.author || '',
+    content: props.content || '',
+    contentError: false,
+    dateError: false,
+  });
+
+  const {
+    title,
+    author,
+    publishedDate,
+    shortDescription,
+    content,
+    contentError,
+    dateError,
+  } = formData;
+
   const {
     register,
     handleSubmit: validate,
     formState: { errors },
   } = useForm();
+
   const handleFormSubmit = (e) => {
-    setContentError(!content);
-    setDateError(!publishedDate);
-    console.log(contentError, dateError);
+    setFormData((prev) => ({ ...prev, contentError: !content }));
+    setFormData((prev) => ({ ...prev, dateError: !publishedDate }));
+
     if (content && publishedDate) {
       action({
         title,
@@ -53,7 +75,7 @@ const PostForm = ({ action, actionText, ...props }) => {
               placeholder='Enter Title'
               value={title}
               onChange={(e) => {
-                setTitle(e.target.value);
+                setFormData((prev) => ({ ...prev, title: e.target.value }));
               }}
             />
             {errors.title && (
@@ -70,7 +92,7 @@ const PostForm = ({ action, actionText, ...props }) => {
               placeholder='Enter author'
               value={author}
               onChange={(e) => {
-                setAuthor(e.target.value);
+                setFormData((prev) => ({ ...prev, author: e.target.value }));
               }}
             />
             {errors.author && (
@@ -83,7 +105,9 @@ const PostForm = ({ action, actionText, ...props }) => {
             <Form.Label>Published</Form.Label>
             <DatePicker
               selected={publishedDate}
-              onChange={(date) => setPublishedDate(date)}
+              onChange={(date) =>
+                setFormData((prev) => ({ ...prev, publishedDate: date }))
+              }
             />
             {dateError && (
               <small className='d-block form-text text-danger mt-2'>
@@ -102,7 +126,10 @@ const PostForm = ({ action, actionText, ...props }) => {
           placeholder='Leave a comment here'
           value={shortDescription}
           onChange={(e) => {
-            setShortDescription(e.target.value);
+            setFormData((prev) => ({
+              ...prev,
+              shortDescription: e.target.value,
+            }));
           }}
         />
         {errors.shortDescription && (
@@ -117,7 +144,7 @@ const PostForm = ({ action, actionText, ...props }) => {
           theme='snow'
           placeholder='Leave a comment here'
           value={content}
-          onChange={setContent}
+          onChange={(content) => setFormData((prev) => ({ ...prev, content }))}
         />
         {contentError && (
           <small className='d-block form-text text-danger mt-2'>
