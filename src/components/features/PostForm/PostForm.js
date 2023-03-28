@@ -11,18 +11,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useForm } from 'react-hook-form';
 
 const PostForm = ({ action, actionText, ...props }) => {
-  // const [title, setTitle] = useState(props.title || '');
-  // const [shortDescription, setShortDescription] = useState(
-  //   props.shortDescription || ''
-  // );
-  // const [publishedDate, setPublishedDate] = useState(
-  //   props.publishedDate || new Date()
-  // );
-  // const [author, setAuthor] = useState(props.author || '');
-  // const [content, setContent] = useState(props.content || '');
-  // const [contentError, setContentError] = useState(false);
-  // const [dateError, setDateError] = useState(false);
-
   const [formData, setFormData] = useState({
     title: props.title || '',
     shortDescription: props.shortDescription || '',
