@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getCategories } from '../../../redux/categoriesRedux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import PropTypes from 'prop-types';
@@ -17,6 +19,7 @@ const PostForm = ({ action, actionText, ...props }) => {
     publishedDate: props.publishedDate || new Date(),
     author: props.author || '',
     content: props.content || '',
+    category: props.category || '',
     contentError: false,
     dateError: false,
   });
@@ -27,9 +30,12 @@ const PostForm = ({ action, actionText, ...props }) => {
     publishedDate,
     shortDescription,
     content,
+    category,
     contentError,
     dateError,
   } = formData;
+
+  const postsCategories = useSelector(getCategories);
 
   const {
     register,
@@ -48,6 +54,7 @@ const PostForm = ({ action, actionText, ...props }) => {
         publishedDate,
         shortDescription,
         content,
+        category,
       });
     }
   };
@@ -105,6 +112,28 @@ const PostForm = ({ action, actionText, ...props }) => {
           </Form.Group>
         </Col>
       </Row>
+      <Form.Group className='mb-3'>
+        <Form.Label>Category</Form.Label>
+        <Form.Select
+          {...register('category', { required: true })}
+          aria-label='Select post category'
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, category: e.target.value }))
+          }
+        >
+          <option value=''>Select category...</option>
+          {postsCategories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </Form.Select>
+        {errors.category && (
+          <small className='d-block form-text text-danger mt-2'>
+            Select 1 category
+          </small>
+        )}
+      </Form.Group>
       <Form.Group className='mb-3' controlId='TextareaDescription'>
         <Form.Label>Short description</Form.Label>
         <Form.Control
@@ -152,7 +181,7 @@ PostForm.propTypes = {
   action: PropTypes.func.isRequired,
   title: PropTypes.string,
   author: PropTypes.string,
-  publishedDate: PropTypes.string,
+  publishedDate: PropTypes.object,
   content: PropTypes.string,
   shortDescription: PropTypes.string,
 };

@@ -22,7 +22,7 @@ const Post = () => {
   };
   const postData = useSelector((state) => getPostById(state, id));
   if (!postData) return <Navigate to='/' />;
-  const { title, author, publishedDate, content } = postData;
+  const { title, author, publishedDate, content, category } = postData;
   const convertedPublishedDate = dateToString(publishedDate);
   return (
     <article>
@@ -75,13 +75,22 @@ const Post = () => {
         </Row>
         <Row className='justify-content-md-center'>
           <Col xs lg='7'>
-            <p className='mb-1 text-bold'>
-              <span>Author: {author}</span>
+            <p className='mb-1 '>
+              <span className='text-bold'>Author: </span>
+              {author}
             </p>
-            <p className='mb-1 text-bold'>
-              <span>Published: {convertedPublishedDate}</span>
+            <p className='mb-1'>
+              <span className='text-bold'>Published: </span>
+              {convertedPublishedDate}
             </p>
-            <p className='my-3' dangerouslySetInnerHTML={{ __html: content }} />
+            <p className='mb-1'>
+              <span className='text-bold'>Category: </span>
+              {category}
+            </p>
+            <p
+              className='my-3 text-break'
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
           </Col>
         </Row>
       </Container>

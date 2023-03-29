@@ -7,6 +7,7 @@ const initialState = {
       content: 'Main content of the article',
       publishedDate: new Date(2022, 1, 2),
       author: 'John Doe',
+      category: 'News',
     },
     {
       id: '2',
@@ -15,6 +16,7 @@ const initialState = {
       content: 'Main content of the article',
       publishedDate: new Date(2022, 1, 2),
       author: 'John Doe',
+      category: 'Movies',
     },
     {
       id: '3',
@@ -23,8 +25,10 @@ const initialState = {
       content: 'Main content of the article',
       publishedDate: new Date(2022, 1, 2),
       author: 'John Doe',
+      category: 'Sport',
     },
   ],
+  categories: ['Sport', 'Movies', 'News'],
 };
 
 export default initialState;
